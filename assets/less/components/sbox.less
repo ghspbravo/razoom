@@ -1,0 +1,32 @@
+.sbox {
+	padding-top: 80px;
+	padding-bottom: 80px;
+
+	@media(max-width: @m-sm-max) {
+		padding-top: 30px;
+		padding-bottom: 30px;
+	}
+
+	&_gr-1 {
+		background: linear-gradient(270.68deg, rgba(245, 205, 205, 0.95) 0.28%, rgba(255, 255, 255, 0) 15.5%), linear-gradient(89.24deg, rgba(154, 187, 206, 0.75) 0.31%, rgba(255, 255, 255, 0) 12.01%);
+	}
+	&_gr-2 {
+		background: linear-gradient(270.59deg, rgba(154, 187, 206, 0.75) 0.28%, rgba(255, 255, 255, 0) 15.5%), linear-gradient(89.35deg, rgba(245, 205, 205, 0.95) 0.31%, rgba(255, 255, 255, 0) 12.01%);
+	}
+
+	&_gr1, &_gr-2 {
+		@media (max-width: @m-sm-max) {
+			// background: white;
+		}
+	}
+	z-index: 1;
+
+	&_bg {
+		background-image: url(/themes/razoom/assets/images/lead-bg.png);
+		background-size: cover;
+	}
+
+	&_lead {
+		background-color: @c-light-blue;
+	}
+}

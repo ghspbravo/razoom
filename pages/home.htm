@@ -1,0 +1,93 @@
+title = "Главная"
+url = "/"
+is_hidden = 0
+layout = "default"
+==
+
+{%content "topbanner.htm" %}
+
+<div class="sbox">
+	<div class="container">
+		<div class="sbox__title">
+			<h2>О проекте</h2>
+		</div>
+
+		<div class="row">
+
+			<div class="col-xl-7 col-lg-6 col-12">
+
+				{%partial "gallery.htm" %}
+
+			<div class="col-xl-5 col-lg-6 col-12">
+					<div class="content">
+							<p>
+								RaZOOM - это комплексный образовательный проект Союза студентов УрФУ.
+							</p>
+							<p>
+								Проект ориентирован на развитие гибких навыков и профессиональных навыков студента, которые отвечают за успешное участие в рабочем процессе и высокую производительность.
+							</p>
+					</div>
+
+					<div class="mt-2 mt-md-4">
+						<a href="{{ 'about'|page }}" class="button">Узнать больше</a>
+					</div>
+
+			</div>
+
+		</div>
+	</div>
+</div>
+
+{%content "factoids.htm"%}
+
+<div class="sbox">
+	<div class="container">
+		<div class="sbox__title">
+			<h2>О нас в видеоролике</h2>
+		</div>
+
+		<div class="js-video-embed video-embed" data-src="//vk.com/video_ext.php?oid=-22941070&id=456239371&hash=457a9bfd4c615e4b&hd=2">
+			<img src="/themes/razoom/assets/images/video-thumb.jpeg" alt="video-thumb">
+		</div>
+
+	</div>
+</div>
+
+<div class="sbox sbox_lead">
+	<div class="container">
+		<div class="sbox__title">
+			<h2>RaZOOM</h2>
+		</div>
+
+		<div class="row no-gutters">
+			<div class="col-lg-9 content">
+					<p>
+						RaZOOM помогает студентам в развитии общепрофессиональных компетенций и гибких навыков, готовит конкурентноспособных специалистов, востребованных на современном рынке труда.
+					</p>
+					<p>
+						Если хотите поддержать проект, вы можете внесите пожертвование в Эндаумент-фонд Уральского федерального университета.
+					</p>
+			</div>
+		</div>
+
+		<div class="mt-2 mt-md-4">
+			{% content "payButton.htm" %}
+		</div>
+
+	</div>
+</div>
+
+<div class="sbox">
+	<div class="container">
+		<div class="sbox__title">
+			<h2>Мероприятия</h2>
+		</div>
+
+		{% partial "eventsGrid.htm" %}
+
+		<div class="row justify-content-center mt-3">
+			<a href="{{ 'events'|page }}" class="button">Смотреть все</a>
+		</div>
+		
+	</div>
+</div>

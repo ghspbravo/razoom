@@ -1,0 +1,41 @@
+title = "Контакты"
+url = "/contacts"
+is_hidden = 0
+layout = "default"
+==
+
+<div class="wrapper">
+	<div class="sbox">
+		<div class="container">
+			<div class="sbox__title">
+				<h2>Наши контакты</h2>
+			</div>
+	
+			<div class="contacts-map-wrapper">
+				<script src="//api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
+				<div class="contacts-map map" id="cont-map" data-coord-x="56.836298" data-coord-y="60.594160"></div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-7 col-md-6 col-12">
+					<p class="big"><b>Наш адрес:</b></p>
+					<p>620014, г. Екатеринбург , ул. Вайнера, дом № 10</p>
+				</div>
+				<div class="col-lg-5 col-md-6 col-12">
+					<p class="big"><b>Электронная почта:</b></p>
+					<a href="mailto:razoomurfu@yandex.ru">razoomurfu@yandex.ru</a>
+				</div>
+				<div class="col-lg-7 col-md-6 col-12">
+					<p class="big"><b>Наши телефоны:</b></p>
+					<p>+7 (9123) 5-91-34
+						<br>+7 (9005) 5-86-46
+						</p>
+				</div>
+				<div class="col-lg-5 col-md-6 col-12">
+					<p class="big"><b>Мы в социальных сетях:</b></p>
+					{% content "socials.htm" %}
+				</div>
+			</div>
+		</div>
+		</div>
+</div>

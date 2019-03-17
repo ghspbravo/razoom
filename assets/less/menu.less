@@ -1,0 +1,81 @@
+.burger, .close {
+	width: 30px;height: 30px;
+	padding: 5px;
+	background-size: contain;
+	cursor: pointer;
+}
+.burger {
+	background: url(/themes/razoom/assets/icons/burger.svg);
+}
+.close {
+	background: url(/themes/razoom/assets/icons/close.svg);
+}
+
+.modal-nav-wrapper {
+	position: fixed;
+	top: 0; left: 0;
+	width: 100%; height: 100%;
+	background: rgba(30, 62, 86, 0.9);
+	z-index: -1;
+	pointer-events: none;
+	opacity: 0;
+	visibility: hidden;
+
+	&.open {
+		z-index: 999;
+		pointer-events: all;
+		visibility: visible;
+		opacity: 1;
+		transition: opacity @tr-standart;
+
+
+		.modal-nav {
+			transform: translateX(0);
+		}
+	}
+}
+
+.modal-nav {
+	position: relative;
+	margin-left: auto;
+	width: 500px; height: 100%;
+	@media(max-width: @m-xs-max) {
+		width: 320px;
+	}
+	background-color: #fff;
+	transition: all 0.1s linear;
+	transition-delay: 0.3s;
+	transform: translateX(100%);
+
+	&-header {
+		padding-left: 30px;
+		padding-right: 30px;
+	}
+
+	&-header {
+		background-color: @c-gray;
+		.logo {
+			width: 150px; height: 50px;
+		}
+		padding-top: 20px;
+		padding-bottom: 20px;
+
+		border-bottom: 3px solid @c-gray;
+	}
+
+	&-item {
+		display: block;
+		padding: 20px 30px;
+		border-bottom: 1px solid @c-gray;
+	}
+
+	&-contacts {
+		position: absolute;
+		bottom: 0; left: 0;
+		width: 100%; height: 50px;
+		padding: 15px 0;
+		background-color: @c-gray;
+		color: white;
+	}
+
+}

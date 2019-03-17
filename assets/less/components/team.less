@@ -1,0 +1,19 @@
+.team-item {
+	&:not(:last-child) {
+		margin-bottom: 30px;
+	}
+	&__thumb {
+		height: 250px;
+
+		@media(max-width: @m-md-max) {
+			height: 200px;
+		}
+		@media(max-width: @m-sm-max) {
+			height: 150px;
+		}
+		img {
+			height: 100%;
+			object-fit: contain;
+		}
+	}
+}

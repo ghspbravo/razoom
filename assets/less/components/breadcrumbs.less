@@ -1,0 +1,19 @@
+.breadcrumbs-back {
+	position: relative;
+	padding-left: 20px;
+
+	a {
+		font-size: 14px;
+		opacity: 0.45;
+	}
+
+	&:before {
+		content: '';
+		position: absolute;
+		left: 0; top: 50%;
+		transform: translateY(-50%);
+		width: 7px; height: 13px;
+		background-image: url(/themes/razoom/assets/icons/arrow-left_gray.svg);
+		background-size: contain;
+	}
+}

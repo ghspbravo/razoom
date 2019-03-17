@@ -1,0 +1,93 @@
+.socials {
+	&-item {
+		&:not(:last-child) {
+			margin-right: 15px;
+		}
+
+		svg {
+			circle, path {
+				transition: fill @tr-standart;
+			}
+		}
+
+		&:hover, &:focus {
+			.socials-item-fb, 
+			.socials-item-vk, 
+			.socials-item-in {
+				circle {
+					fill: white;
+					opacity: 0.85;
+				}
+
+				path {
+					fill: black;
+				}
+
+				box-shadow: @bshadow-standart;
+				border-radius: 50%;
+			}
+		}
+
+	}
+
+	&_bw {
+		.socials-item-fb, 
+		.socials-item-vk, 
+		.socials-item-in {
+			circle {
+				fill: white;
+				opacity: 0.85;
+			}
+
+			path {
+				fill: black;
+			}
+		}
+	}
+}
+
+.likely {
+
+	.likely__widget {
+		padding: 15px;
+		@media(max-width: @m-sm-max) {
+			padding: 10px 5px;
+		}
+		box-shadow: 0px 0px 15px rgba(154, 187, 206, 0.2);
+	}
+
+	.likely__button {
+		font-size: 14px;
+		margin-left: 10px;
+	}
+
+	.likely__icon {
+		path {
+			fill: white;
+		}
+	}
+
+	.likely__widget_vkontakte {
+		background-color: #4A76AE;
+
+		&:hover {
+			background-color: darken(#4A76AE, 20%);
+			color: white;
+		}
+		&:focus {
+			background-color: darken(#4A76AE, 40%);
+		}
+	}
+
+	.likely__widget_facebook {
+		background-color: #3B5998;
+
+		&:hover {
+			background-color: darken(#3B5998, 20%);
+			color: white;
+		}
+		&:focus {
+			background-color: darken(#3B5998, 40%);
+		}
+	}
+}

@@ -1,0 +1,28 @@
+.contacts {
+	position: relative;
+	a {
+		border-bottom: none;
+	}
+	&:before {
+		content: '';
+		position: absolute;
+		left: 0;
+		background-size: contain;
+	}
+	&_phone {
+		&:before {
+			background-image: url(/themes/razoom/assets/icons/phone.svg);
+			width: 24px; height: 24px;
+			top: -5px;
+		}
+		padding-left: 35px;
+	}
+	&_email {
+		&:before {
+			background-image: url(/themes/razoom/assets/icons/mail.svg);
+			width: 30px; height: 22px;
+			top: -2px;
+		}
+		padding-left: 40px;
+	}
+}

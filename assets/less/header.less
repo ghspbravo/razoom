@@ -1,0 +1,48 @@
+header {
+	position: absolute;
+	@media(max-width: @m-md-max) {
+		position: fixed;
+	}
+	width: 100%;
+	top: 0; left: 0;
+	z-index: 11;
+
+	background: rgba(0,0,0,0.75);
+
+
+	padding: 20px 0;
+	color: white;
+	// background: url(/themes/razoom/assets/images/top-banner.png);
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+
+	.logo {
+		@media (max-width: @m-lg-max) {
+			width: 150px; height: 50px;
+		}
+	}
+
+	.nav-list-item,
+	.contacts,
+	.burger {
+		opacity: 0.85;
+	}
+}
+
+.nav-list {
+
+	&_horizontal {
+		.nav-list-item {
+			&:not(:last-child) {
+				margin-right: 45px;
+				@media (max-width: @m-lg-max) {
+					margin-right: 15px;
+				}
+			}
+		}
+
+		@media (max-width: @m-md-max) {
+			display: none;
+		}
+	}
+
+}
