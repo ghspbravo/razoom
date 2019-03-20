@@ -1,69 +1,48 @@
 <div class="events-grid">
+	{% for record in records %}
+		<div class="events-grid-item">
+			<a href="/events/{{ attribute(record, detailsKeyColumn) }}" class="event no-underline">
+				<div class="event-image" style="background-image: url({% if record.poster.path %}
+				{{ record.poster.path }}
+				{% else %}
+						/themes/razoom/assets/images/events-thumb.jpeg
+		{% endif %})"></div>
 
-	<div class="events-grid-item">
-		<a href="/events/1" class="event no-underline">
-			<div class="event-image" style="background-image: url(/themes/razoom/assets/images/event-thumb.jpeg)"></div>
+				<div class="event-inner">
+					<div class="event__title">
+						<p class="big">{{ attribute(record, "title") }}</p>
+					</div>
 
-			<div class="event-inner">
-				<div class="event__title">
-					<p class="big">Курс «Искусство переговоров и публичной речи»</p>
+					<div class="event__date"><p class="small">
+						{% if record.date_and_place %}
+							{{record.date_and_place}}
+						{% elseif record.dates %}
+							{{record.dates}}
+						{% endif %}
+					</p></div>
 				</div>
-
-				<div class="event__date"><p class="small">11 - 22 марта</p></div>
-			</div>
-		</a>
-	</div>
-	<div class="events-grid-item">
-		<a href="/events/1" class="event no-underline">
-			<div class="event-image" style="background-image: url(/themes/razoom/assets/images/event-thumb.jpeg)"></div>
-
-			<div class="event-inner">
-				<div class="event__title">
-					<p class="big">Курс «Эмоциональный интеллект»</p>
-				</div>
-
-				<div class="event__date"><p class="small">25 марта - 5 апреля</p></div>
-			</div>
-		</a>
-	</div>
-	<div class="events-grid-item">
-		<a href="/events/1" class="event no-underline">
-			<div class="event-image" style="background-image: url(/themes/razoom/assets/images/event-thumb.jpeg)"></div>
-
-			<div class="event-inner">
-				<div class="event__title">
-					<p class="big">Курс «Карьера»</p>
-				</div>
-
-				<div class="event__date"><p class="small">8 - 19 апреля</p></div>
-			</div>
-		</a>
-	</div>
-	<div class="events-grid-item">
-		<a href="/events/1" class="event no-underline">
-			<div class="event-image" style="background-image: url(/themes/razoom/assets/images/event-thumb.jpeg)"></div>
-
-			<div class="event-inner">
-				<div class="event__title">
-					<p class="big">Курс «Финансовая грамотность»</p>
-				</div>
-
-				<div class="event__date"><p class="small">22 апреля - 8 мая</p></div>
-			</div>
-		</a>
-	</div>
-	<div class="events-grid-item">
-		<a href="/events/1" class="event no-underline">
-			<div class="event-image" style="background-image: url(/themes/razoom/assets/images/event-thumb.jpeg)"></div>
-
-			<div class="event-inner">
-				<div class="event__title">
-					<p class="big">Курс «Продвижение личного бренда»</p>
-				</div>
-
-				<div class="event__date"><p class="small">13 - 24 мая</p></div>
-			</div>
-		</a>
-	</div>
+			</a>
+		</div>
+	{% else %}
+			<p>{{ noRecordsMessage }}</p>
+	{% endfor %}
 
 </div>
+
+{% if records.lastPage > 1 %}
+    <ul class="pagination">
+        {% if records.currentPage > 1 %}
+            <li><a href="{{ this.page.baseFileName|page({ (pageParam): (records.currentPage-1) }) }}">&larr; Prev</a></li>
+        {% endif %}
+
+        {% for page in 1..records.lastPage %}
+            <li class="{{ records.currentPage == page ? 'active' : null }}">
+                <a href="{{ this.page.baseFileName|page({ (pageParam): page }) }}">{{ page }}</a>
+            </li>
+        {% endfor %}
+
+        {% if records.lastPage > records.currentPage %}
+            <li><a href="{{ this.page.baseFileName|page({ (pageParam): (records.currentPage+1) }) }}">Next &rarr;</a></li>
+        {% endif %}
+    </ul>
+{% endif %}	

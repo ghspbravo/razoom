@@ -1,24 +1,11 @@
 <div class="swiper-container gallery-slider">
 		<div class="swiper-wrapper">
 
-			<div class="swiper-slide">
-				<img src="/themes/razoom/assets/images/event-thumb.jpeg" alt="gallery-main-pic">
-			</div>
-			<div class="swiper-slide">
-				<img src="/themes/razoom/assets/images/news-thumb.jpeg" alt="gallery-main-pic">
-			</div>
-			<div class="swiper-slide">
-				<img src="/themes/razoom/assets/images/event-thumb.jpeg" alt="gallery-main-pic">
-			</div>
-			<div class="swiper-slide">
-				<img src="/themes/razoom/assets/images/news-thumb.jpeg" alt="gallery-main-pic">
-			</div>
-			<div class="swiper-slide">
-				<img src="/themes/razoom/assets/images/event-thumb.jpeg" alt="gallery-main-pic">
-			</div>
-			<div class="swiper-slide">
-				<img src="/themes/razoom/assets/images/news-thumb.jpeg" alt="gallery-main-pic">
-			</div>
+			{% for image in images %}
+				<div class="swiper-slide">
+					<img src="{{ image.path }}" alt="gallery-main-pic">
+				</div>
+			{% endfor %}
 
 		</div>
 	</div>
@@ -27,24 +14,11 @@
 		<div class="swiper-container">
 			<div class="swiper-wrapper">
 
-					<div class="swiper-slide">
-						<img src="/themes/razoom/assets/images/event-thumb.jpeg" alt="gallery-main-pic">
-					</div>
-					<div class="swiper-slide">
-						<img src="/themes/razoom/assets/images/news-thumb.jpeg" alt="gallery-main-pic">
-					</div>
-					<div class="swiper-slide">
-						<img src="/themes/razoom/assets/images/event-thumb.jpeg" alt="gallery-main-pic">
-					</div>
-					<div class="swiper-slide">
-						<img src="/themes/razoom/assets/images/news-thumb.jpeg" alt="gallery-main-pic">
-					</div>
-					<div class="swiper-slide">
-						<img src="/themes/razoom/assets/images/event-thumb.jpeg" alt="gallery-main-pic">
-					</div>
-					<div class="swiper-slide">
-						<img src="/themes/razoom/assets/images/news-thumb.jpeg" alt="gallery-main-pic">
-					</div>
+					{% for image in images %}
+						<div class="swiper-slide">
+							<img src="{{ image.path }}" alt="gallery-main-pic">
+						</div>
+					{% endfor %}
 
 			</div>
 

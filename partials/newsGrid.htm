@@ -1,20 +1,44 @@
 <div class="row news-list">
-	{% for i in 0..7 %}
+	{% for record in records %}
 		<div class="col-md-6 col-12 news-item-wrapper">
-			<a href="/news/1" class="news-item">
+			<a href="news/{{ attribute(record, detailsKeyColumn) }}" class="news-item">
 				<div class="news-item__thumb">
-					<img src="/themes/razoom/assets/images/news-thumb.jpeg" alt="news-thumb">
+                    <img src="{% if record.poster.path %}
+                                {{ record.poster.path }}
+                                {% else %}
+                                    /themes/razoom/assets/images/news-thumb.jpeg
+                            {% endif %}" alt="news-thumb">
 				</div>
 				<div class="news-item__date">
-					<p class="small">18 февраля, 2019</p>
+					<p class="small">{{ attribute(record, "created_at") }}</p>
 				</div>
 				<div class="news-item__title">
-					<h3><span>Процесс внедрения и модернизации форм развития и модернизации</span></h3>
+					<h3><span>{{ attribute(record, "title") }}</span></h3>
 				</div>
 				<div class="news-item__excerpt">
-					<p>Задача организации, в особенности же дальнейшее развитие различных форм деятельности требуют от нас. Задача организации, в особенности же дальнейшее развитие различных форм... </p>
+					<p>{{ attribute(record, "excerpt") }}</p>
 				</div>
 			</a>
 		</div>
+	{% else %}
+			<p>{{ noRecordsMessage }}</p>
 	{% endfor %}
 </div>
+
+{% if records.lastPage > 1 %}
+    <ul class="pagination">
+        {% if records.currentPage > 1 %}
+            <li><a href="{{ this.page.baseFileName|page({ (pageParam): (records.currentPage-1) }) }}">&larr; Prev</a></li>
+        {% endif %}
+
+        {% for page in 1..records.lastPage %}
+            <li class="{{ records.currentPage == page ? 'active' : null }}">
+                <a href="{{ this.page.baseFileName|page({ (pageParam): page }) }}">{{ page }}</a>
+            </li>
+        {% endfor %}
+
+        {% if records.lastPage > records.currentPage %}
+            <li><a href="{{ this.page.baseFileName|page({ (pageParam): (records.currentPage+1) }) }}">Next &rarr;</a></li>
+        {% endif %}
+    </ul>
+{% endif %}	

@@ -1,17 +1,33 @@
 title = "Новости"
 url = "/news"
-is_hidden = 0
 layout = "default"
-==
+is_hidden = 0
 
+[builderList]
+modelClass = "Zotovda\News\Models\News"
+scope = "-"
+scopeValue = "{{ :scope }}"
+displayColumn = "title"
+noRecordsMessage = "Новостей нет"
+detailsPage = "newsSingle"
+detailsKeyColumn = "id"
+detailsUrlParameter = "id"
+pageNumber = "{{ :page }}"
+==
 <div class="wrapper">
 	<div class="sbox">
 		<div class="container">
 			<div class="sbox__title">
 				<h2>Новости</h2>
 			</div>
-
-			{% partial "newsGrid.htm" %}
+			 
+			{% partial "newsGrid.htm" 
+				records = builderList.records 
+				noRecordsMessage = builderList.noRecordsMessage 
+				detailsPage = builderList.detailsPage
+				detailsKeyColumn = builderList.detailsKeyColumn
+				detailsUrlParameter = builderList.detailsUrlParameter
+			%}
 
 		</div>
 	</div>

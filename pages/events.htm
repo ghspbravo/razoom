@@ -2,6 +2,17 @@ title = "Мероприятия"
 url = "/events"
 is_hidden = 0
 layout = "default"
+
+[builderList]
+modelClass = "Zotovda\Events\Models\Events"
+scope = "-"
+scopeValue = "{{ :scope }}"
+displayColumn = "title"
+noRecordsMessage = "Мероприятий не запланировано"
+detailsPage = "eventSingle"
+detailsKeyColumn = "id"
+detailsUrlParameter = "id"
+pageNumber = "{{ :page }}"
 ==
 
 <div class="wrapper">
@@ -22,7 +33,13 @@ layout = "default"
 			</div>
 
 			<div class="mt-3">
-				{% partial "eventsGrid.htm" %}
+				{% partial "eventsGrid.htm" 
+					records = builderList.records 
+					noRecordsMessage = builderList.noRecordsMessage 
+					detailsPage = builderList.detailsPage
+					detailsKeyColumn = builderList.detailsKeyColumn
+					detailsUrlParameter = builderList.detailsUrlParameter 
+				%}
 			</div>
 
 		</div>

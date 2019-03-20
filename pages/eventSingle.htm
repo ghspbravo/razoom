@@ -2,41 +2,74 @@ title = "Event title"
 url = "/events/:event_id"
 is_hidden = 0
 layout = "default"
+
+[builderDetails]
+modelClass = "Zotovda\Events\Models\Events"
+identifierValue = "{{ :event_id }}"
+modelKeyColumn = "id"
+displayColumn = "title"
+notFoundMessage = "Record not found"
+
+[viewBag]
+pageTitle = builderDetails.record.title
 ==
+{% set record = builderDetails.record %}
+{% set displayColumn = builderDetails.displayColumn %}
+{% set notFoundMessage = builderDetails.notFoundMessage %}
 
 <div class="wrapper">
 	
 	<div class="sbox">
 		<div class="container">
-			<div class="col-lg-8 col-12 pl-0">
-				{% partial "breadcrumbs.htm" href="events" %}
-				
-				<div class="sbox__title">
-					<h2>Название мероприятия</h2>
-				</div>
-	
-				<div class="row no-gutters tags">
-					<div class="tags-item mr-3">
-						<p class="small transparent">Место: ул. Вайнера, дом № 10</p>
+			{% if record %}
+				<div class="col-lg-8 col-12 pl-0">
+					{% partial "breadcrumbs.htm" href="events" %}
+					
+					<div class="sbox__title">
+						<h2>{{record.title}}</h2>
 					</div>
-					<div class="tags-item">
-						<p class="small transparent">Дата и время: 10 марта, 16:00</p>
+		
+					<div class="row no-gutters tags">
+						{% if record.place %}
+							<div class="tags-item mr-3">
+								<p class="small transparent">Место: {{ record.place }}</p>
+							</div>
+						{% endif %}
+						{% if record.date_and_place %}
+						<div class="tags-item mr-3">
+							<p class="small transparent">Дата и время: {{ record.date_and_place }}</p>
+						</div>
+						{% endif %}
+						{% if record.dates %}
+						<div class="tags-item">
+							<p class="small transparent">Даты проведения: {{ record.dates }}</p>
+						</div>
+						{% endif %}
 					</div>
-				</div>
-	
-				<div class="content">
-					<p>Разнообразный и богатый опыт консультация с широким активом способствует подготовки и реализации направлений прогрессивного развития. Задача организации, в особенности же постоянное информационно-пропагандистское обеспечение нашей деятельности требуют от нас анализа соответствующий условий активизации. </p>
-				</div>
-	
-				<div class="mt-3">
-					<a href="/" class="button">Зарегестрироваться</a>
-				</div>
-	
-				<div class="mt-3">
-					{% partial "gallery.htm" %}
-				</div>
-			</div>
-			</div>
+		
+					<div class="content">
+						{{record.content|raw}}
+					</div>
+					
+					{% if record.apply_link %}
+					<div class="mt-3">
+						<a href="{{ record.apply_link }}" target="_blank" class="button">Зарегестрироваться</a>
+					</div>
+					{% endif %}
+		
+					{% if record.gallery != '[]' %}
+					<div class="mt-3">
+						{% partial "gallery.htm" images=record.gallery %}
+					</div>
+					{% endif %}
 
+				</div>
+				{% else %}
+					{% partial "breadcrumbs.htm" href="events" %}
+					<p>
+						{{ notFoundMessage }}
+					</p>
+				{% endif %}
+		</div>
 	</div>
 </div>
