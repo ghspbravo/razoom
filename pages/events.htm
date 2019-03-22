@@ -13,25 +13,38 @@ detailsPage = "eventSingle"
 detailsKeyColumn = "id"
 detailsUrlParameter = "id"
 pageNumber = "{{ :page }}"
+
+[builderDetails pageDetails]
+modelClass = "Zotovda\Content\Models\Pages"
+identifierValue = 1
+modelKeyColumn = "id"
+displayColumn = "id"
+notFoundMessage = "Record not found"
 ==
+{% set content = pageDetails.record %}
+
 
 <div class="wrapper">
 	<div class="sbox">
 		<div class="container">
 
 			<div class="col-lg-8 col-12">
+
+				{% if content.events_title %}
 				<div class="sbox__title">
-					<h2>Расписание мероприятий</h2>
+					<h2>{{content.events_title}}</h2>
 				</div>
+				{% endif %}
 	
+				{% if content.events_content %}
 				<div class="content">
-					<p>
-							Описание выбранной категории. 
-							Разнообразный и богатый опыт консультация с широким активом способствует подготовки и реализации направлений прогрессивного развития. Задача организации, в особенности же постоянное информационно-пропагандистское обеспечение нашей деятельности 
-					</p>
+					{{content.events_content|raw}}
 				</div>
+				{% endif %}
+
 			</div>
 
+			{% if builderList.records != "[]" %}
 			<div class="mt-3">
 				{% partial "eventsGrid.htm" 
 					records = builderList.records 
@@ -41,6 +54,7 @@ pageNumber = "{{ :page }}"
 					detailsUrlParameter = builderList.detailsUrlParameter 
 				%}
 			</div>
+			{% endif %}
 
 		</div>
 	</div>

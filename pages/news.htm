@@ -13,21 +13,36 @@ detailsPage = "newsSingle"
 detailsKeyColumn = "id"
 detailsUrlParameter = "id"
 pageNumber = "{{ :page }}"
+
+[builderDetails pageDetails]
+modelClass = "Zotovda\Content\Models\Pages"
+identifierValue = 1
+modelKeyColumn = "id"
+displayColumn = "id"
+notFoundMessage = "Record not found"
 ==
+{% set content = pageDetails.record %}
+
+
 <div class="wrapper">
 	<div class="sbox">
 		<div class="container">
+
+			{% if content.news_title %}
 			<div class="sbox__title">
-				<h2>Новости</h2>
+				<h2>{{content.news_title}}</h2>
 			</div>
+			{% endif %}
 			 
-			{% partial "newsGrid.htm" 
-				records = builderList.records 
-				noRecordsMessage = builderList.noRecordsMessage 
-				detailsPage = builderList.detailsPage
-				detailsKeyColumn = builderList.detailsKeyColumn
-				detailsUrlParameter = builderList.detailsUrlParameter
-			%}
+			{% if builderList.records != "[]" %}
+				{% partial "newsGrid.htm" 
+					records = builderList.records 
+					noRecordsMessage = builderList.noRecordsMessage 
+					detailsPage = builderList.detailsPage
+					detailsKeyColumn = builderList.detailsKeyColumn
+					detailsUrlParameter = builderList.detailsUrlParameter
+				%}
+			{% endif %}
 
 		</div>
 	</div>

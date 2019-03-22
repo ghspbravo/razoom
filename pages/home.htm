@@ -1,89 +1,173 @@
 title = "Главная"
 url = "/"
-is_hidden = 0
 layout = "default"
+is_hidden = 0
+
+[builderList eventsList]
+modelClass = "Zotovda\Events\Models\Events"
+scope = "-"
+scopeValue = "{{ :scope }}"
+displayColumn = "title"
+noRecordsMessage = "Мероприятий не запланировано"
+detailsPage = "eventSingle"
+detailsKeyColumn = "id"
+detailsUrlParameter = "id"
+pageNumber = "{{ :page }}"
+
+[builderDetails homeDetails]
+modelClass = "Zotovda\Content\Models\Pages"
+identifierValue = 1
+modelKeyColumn = "id"
+displayColumn = "id"
+notFoundMessage = "Record not found"
+
+[builderDetails contentDetails]
+modelClass = "Zotovda\Content\Models\Content"
+identifierValue = 1
+modelKeyColumn = "id"
+displayColumn = "id"
+notFoundMessage = "Record not found"
+
+[builderList factoidsList]
+modelClass = "Zotovda\Content\Models\Factoids"
+scope = "-"
+scopeValue = "{{ :scope }}"
+displayColumn = "id"
+noRecordsMessage = "No records found"
+detailsPage = "-"
+detailsUrlParameter = "id"
+pageNumber = "{{ :page }}"
+
+[builderList topBanner]
+modelClass = "Zotovda\Content\Models\TopBanner"
+scope = "-"
+scopeValue = "{{ :scope }}"
+displayColumn = "id"
+noRecordsMessage = "No records found"
+detailsPage = "-"
+detailsUrlParameter = "id"
+pageNumber = "{{ :page }}"
 ==
+{% set elements = contentDetails.record %}
+{% set content = homeDetails.record %}
+{% set factoids = factoidsList.records %}
 
-{%content "topbanner.htm" %}
+{% if topBanner.records != "[]" %}
+	{%partial "topbanner.htm"
+		slides = topBanner.records
+	%}
+{% else %}
+<div class="wrapper">
+{% endif %}
 
+{% if content.home_about_title or content.home_about or content.home_about_slider != "[]" %}
 <div class="sbox">
 	<div class="container">
+		{% if content.home_about_title %}
 		<div class="sbox__title">
-			<h2>О проекте</h2>
+			<h2>{{content.home_about_title}}</h2>
 		</div>
+		{% endif %}
 
 		<div class="row">
 
-			<div class="col-xl-7 col-lg-6 col-12">
+			{% if content.home_about_slider != "[]" %}
+				<div class="col-xl-7 col-lg-6 col-12">
 
-				{%partial "gallery.htm" %}
+					{%partial "gallery.htm" images=content.home_about_slider %}
 
-			<div class="col-xl-5 col-lg-6 col-12">
-					<div class="content">
-							<p>
-								RaZOOM - это комплексный образовательный проект Союза студентов УрФУ.
-							</p>
-							<p>
-								Проект ориентирован на развитие гибких навыков и профессиональных навыков студента, которые отвечают за успешное участие в рабочем процессе и высокую производительность.
-							</p>
-					</div>
+				</div>
+			{% endif %}
+			{% if content.home_about %}
+				<div class="col-xl-5 col-lg-6 col-12">
+						<div class="content">
+								{{ content.home_about|raw }}
+						</div>
 
-					<div class="mt-2 mt-md-4">
-						<a href="{{ 'about'|page }}" class="button">Узнать больше</a>
-					</div>
+						<div class="mt-2 mt-md-4">
+							<a href="{{ 'about'|page }}" class="button">Узнать больше</a>
+						</div>
 
-			</div>
+				</div>
+			{% endif %}
 
 		</div>
 	</div>
 </div>
+{% endif %}
 
-{%content "factoids.htm"%}
+{% if factoids != "[]" %}
+	{%partial "factoids.htm" facts=factoids %}
+{% endif %}
 
+{% if content.home_video_title or content.home_video_url %}
 <div class="sbox">
 	<div class="container">
-		<div class="sbox__title">
-			<h2>О нас в видеоролике</h2>
-		</div>
 
-		<div class="js-video-embed video-embed" data-src="//vk.com/video_ext.php?oid=-22941070&id=456239371&hash=457a9bfd4c615e4b&hd=2">
-			<img src="/themes/razoom/assets/images/video-thumb.jpeg" alt="video-thumb">
+		{% if content.home_video_title %}
+		<div class="sbox__title">
+			<h2>{{ content.home_video_title }}</h2>
 		</div>
+		{% endif %}
+
+		{% if content.home_video_url and content.home_video_thumb.path %}
+		<div class="js-video-embed video-embed" data-src="{{ content.home_video_url }}">
+			<img src="{{ content.home_video_thumb.path }}" alt="video-thumb">
+		</div>
+		{% endif %}
 
 	</div>
 </div>
+{% endif %}
 
+{% if content.home_lead_title or content.home_lead_content %}
 <div class="sbox sbox_lead">
 	<div class="container">
-		<div class="sbox__title">
-			<h2>RaZOOM</h2>
-		</div>
-
 		<div class="row no-gutters">
-			<div class="col-lg-9 content">
-					<p>
-						RaZOOM помогает студентам в развитии общепрофессиональных компетенций и гибких навыков, готовит конкурентноспособных специалистов, востребованных на современном рынке труда.
-					</p>
-					<p>
-						Если хотите поддержать проект, вы можете внесите пожертвование в Эндаумент-фонд Уральского федерального университета.
-					</p>
+			<div class="col-lg-9">
+
+				{% if content.home_lead_title %}
+				<div class="sbox__title">
+					<h2>{{content.home_lead_title}}</h2>
+				</div>
+				{% endif %}
+
+				{% if content.home_lead_content %}
+				<div class="content">
+					{{ content.home_lead_content|raw }}
+				</div>
+				{% endif %}
+				
 			</div>
 		</div>
 
+		{% if elements.endaument_link %}
 		<div class="mt-2 mt-md-4">
-			{% content "payButton.htm" %}
+			{% content "payButton.htm" link=elements.endaument_link %}
 		</div>
+		{% endif %}
 
 	</div>
 </div>
+{% endif %}
 
+{% if eventsList.records %}
 <div class="sbox">
 	<div class="container">
-		<div class="sbox__title">
-			<h2>Мероприятия</h2>
-		</div>
 
-		{% partial "eventsGrid.htm" %}
+		{% if content.home_events_title %}
+		<div class="sbox__title">
+			<h2>{{ content.home_events_title }}</h2>
+		</div>
+		{% endif %}
+
+		{% partial "eventsGrid.htm" 
+			records = eventsList.records 
+			noRecordsMessage = eventsList.noRecordsMessage 
+			detailsPage = eventsList.detailsPage
+			detailsKeyColumn = eventsList.detailsKeyColumn
+			detailsUrlParameter = eventsList.detailsUrlParameter 
+		%}
 
 		<div class="row justify-content-center mt-3">
 			<a href="{{ 'events'|page }}" class="button">Смотреть все</a>
@@ -91,3 +175,8 @@ layout = "default"
 		
 	</div>
 </div>
+{% endif %}
+
+{% if topBanner.records == "[]" %}
+</div>
+{% endif %}

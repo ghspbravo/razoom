@@ -1,11 +1,19 @@
 <div id="topbanner" class="swiper-container topbanner">
 	<div class="swiper-wrapper">
 
-		<div class="swiper-slide topbanner-item" style="background-image: url(/themes/razoom/assets/images/top-banner.png)">
+		{% for slide in slides %}
+
+		<div class="swiper-slide topbanner-item" style="background-image: url({{slide.image.path}})">
+
+			{% if slide.content %}
 			<div class="topbanner-item__content">
-				<h1>Образовательный проект союза студентов УрФУ</h1>
+				<h1>{{slide.content}}</h1>
 			</div>
+			{% endif %}
+
 		</div>
+
+		{% endfor %}
 	
 	</div>
 	

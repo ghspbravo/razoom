@@ -2,49 +2,47 @@ title = "Поддержать"
 url = "/support"
 is_hidden = 0
 layout = "default"
+
+[builderDetails pageDetails]
+modelClass = "Zotovda\Content\Models\Pages"
+identifierValue = 1
+modelKeyColumn = "id"
+displayColumn = "id"
+notFoundMessage = "Record not found"
+
+[builderDetails contentDetails]
+modelClass = "Zotovda\Content\Models\Content"
+identifierValue = 1
+modelKeyColumn = "id"
+displayColumn = "id"
+notFoundMessage = "Record not found"
+
 ==
+{% set content = pageDetails.record %}
+{% set elements = contentDetails.record %}
+
 
 <div class="wrapper">
 	<div class="sbox">
 		<div class="container">
 
 			<div class="col-lg-8 col-12 pl-0">
+
+				{% if content.fond_title %}
 				<div class="sbox__title">
-					<h2>Эндаумент-фонд</h2>
+					<h2>{{content.fond_title}}</h2>
 				</div>
+				{% endif %}
 	
-				{% content "payButton.htm" %}
+				{% if elements.endaument_link %}
+					{% content "payButton.htm" link=elements.endaument_link %}
+				{% endif %}
 	
-				<div class="faq mt-4">
-
-						<p>
-							RaZOOM помогает студентам в развитии общепрофессиональных компетенций и гибких навыков, готовит конкурентноспособных специалистов, востребованных на современном рынке труда.
-						</p>
-						<p>
-							Если хотите поддержать проект, вы можете внесите пожертвование в Эндаумент-фонд Уральского федерального университета.
-						</p>
-
-					<div class="faq-item mt-3">
-						<div class="faq-item__question">
-							<h3>Что такое Эндаумент-фонд?</h3>
-						</div>
-
-						<div class="faq-item__answer content">
-								<p>
-									В начале марта 2012 г. был создан фонд по формированию целевого капитала на развитие Уральского федерального университета. Фонд является некоммерческой организацией, учрежденной физическими лицами на основе добровольных имущественных взносов.
-								</p>
-
-								<p>
-									Принцип работы Эндаумент-фонда прост: благотворители жертвуют средства на цели развития университета, формируя целевой капитал. Благотворитель может выбрать цель, которую будут поддерживать его средства и потом контролировать целевое назначение. Капитал передается в доверительное управление с целью инвестирования, что обеспечивает его постоянный прирост. Доход, полученный за счет управления капиталом, направляется на поддержку проектов студентов и сотрудников университета. При этом сам целевой капитал неприкосновенен.
-								</p>
-								
-								<p>
-									Эндаумент — это очень важный инструмент поддержки университетского сообщества, который давно используется во многих международных и ряде российских университетов.
-								</p>
-						</div>
-					</div>
-	
-			</div>
+				{% if content.fond_content %}
+				<div class="content mt-4">
+					{{content.fond_content|raw}}
+				</div>
+				{% endif %}
 
 			</div>
 

@@ -1,0 +1,14 @@
+<div class="sbox sbox_bg">
+	<div class="container">
+		<div class="row factiods">
+		
+			{% for fact in facts %}
+				<div class="col-lg-3 col-12 factoids-item">
+					<div class="factoids-item__num js-animate-num" data-num="{{fact.number}}"><span>{{fact.number}}</span></div>
+					<div class="factoids-item__title"><p>{{fact.description}}</p></div>
+				</div>
+			{% endfor %}
+		
+		</div>
+	</div>
+</div>

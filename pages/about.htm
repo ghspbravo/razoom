@@ -2,211 +2,176 @@ title = "О проекте"
 url = "/about"
 is_hidden = 0
 layout = "default"
+
+
+[builderDetails aboutDetails]
+modelClass = "Zotovda\Content\Models\Pages"
+identifierValue = 1
+modelKeyColumn = "id"
+displayColumn = "id"
+notFoundMessage = "Record not found"
+
+[builderList factoidsList]
+modelClass = "Zotovda\Content\Models\Factoids"
+scope = "-"
+scopeValue = "{{ :scope }}"
+displayColumn = "id"
+noRecordsMessage = "No records found"
+detailsPage = "-"
+detailsUrlParameter = "id"
+pageNumber = "{{ :page }}"
+
+[builderList teamList]
+modelClass = "Zotovda\Content\Models\Team"
+scope = "-"
+scopeValue = "{{ :scope }}"
+displayColumn = "id"
+noRecordsMessage = "No records found"
+detailsPage = "-"
+detailsUrlParameter = "id"
+pageNumber = "{{ :page }}"
+
+[builderList reviewList]
+modelClass = "Zotovda\Content\Models\Reviews"
+scope = "-"
+scopeValue = "{{ :scope }}"
+displayColumn = "id"
+noRecordsMessage = "No records found"
+detailsPage = "-"
+detailsUrlParameter = "id"
+pageNumber = "{{ :page }}"
+
 ==
+{% set content = aboutDetails.record %}
+{% set factoids = factoidsList.records %}
+
+{% set team = teamList.records %}
+{% set reviews = reviewList.records %}
 
 <div class="wrapper">
+
+	{% if content.about_about_title or content.about_about_content or content.about_slider != "[]" %}
 	<div class="sbox">
 		<div class="container">
 
 			<div class="col-lg-8 col-12 pl-0">
+
+				{% if content.about_about_title %}
 				<div class="sbox__title">
-					<h2>О проекте</h2>
+					<h2>{{content.about_about_title}}</h2>
 				</div>
+				{% endif %}
 
+				{% if content.about_about_content %}
 				<div class="content">
-					<p>
-						«RaZOOM» — проект, в котором каждый студент УрФУ может саморазвиваться.
-					</p>
-					<p>
-						Проект объединяет в себе студентов разных курсов и направлений. Спикеры рассказывают о своём пути, отвечают
-						на все вопросы и делятся тем, как добиваться поставленных целей.
-					</p>
-					<p>
-						RaZOOM — это возможность показать, на что ты способен, расширить кругозор и повысить личную
-						конкурентоспособность на рынке труда. Саморазвивайся и прокачивай свои навыки. С удобным форматом это легко,
-						а с актуальными темами ещё и увлекательно!
-					</p>
+					{{content.about_about_content|raw}}
 				</div>
+				{% endif %}
 
-				{% partial "gallery.htm" %}
+				{% if content.about_slider != "[]" %}
+					{% partial "gallery.htm" images=content.about_slider %}
+				{% endif %}
+
 			</div>
+
 		</div>
-
 	</div>
+	{% endif %}
 
-	{% content "factoids.htm" %}
-
+	{% if factoids != "[]" %}
+		{%partial "factoids.htm" facts=factoids %}
+	{% endif %}
+	
+	{% if team != "[]" %}
 	<div class="sbox">
 		<div class="container">
+
+			{% if content.about_team_title %}
 			<div class="sbox__title">
-				<h2>Наша команда</h2>
+				<h2>{{content.about_team_title}}</h2>
 			</div>
+			{% endif %}
 
 			<div class="row team-list">
 
+				{% for member in team %}
 				<div class="team-item col-xl-3 col-lg-4 col-md-6 col-12">
 					<div class="team-item__thumb">
-						<a href="/themes/razoom/assets/images/team-member-1.jpg" data-fancybox="gallery"
-							data-caption="Мария Кремешкова" class="no-underline fancybox">
-							<img src="/themes/razoom/assets/images/team-member-1.jpg" alt="team-member-photo">
+						<a href="{{member.photo.path}}" data-fancybox="gallery"
+							data-caption="{{member.name}}" class="no-underline fancybox">
+							<img src="{{member.photo.path}}" alt="team-member-photo">
 						</a>
 					</div>
 
 					<div class="team-item__name">
-						<p class="big"><b>Мария Кремешкова</b></p>
+						<p class="big"><b>{{member.name}}</b></p>
 					</div>
 
+					{% if member.position %}
 					<div class="team-item__description">
-						<p>Руководитель проекта</p>
+						<p>{{member.position}}</p>
 					</div>
+					{% endif %}
+
 				</div>
-
-				<div class="team-item col-xl-3 col-lg-4 col-md-6 col-12">
-					<div class="team-item__thumb">
-						<a href="/themes/razoom/assets/images/team-member-3.jpg" data-fancybox="gallery" data-caption="Мария Коурова"
-							class="no-underline fancybox">
-							<img src="/themes/razoom/assets/images/team-member-3.jpg" alt="team-member-photo">
-						</a>
-					</div>
-
-					<div class="team-item__name">
-						<p class="big"><b>Мария Коурова</b></p>
-					</div>
-
-					<div class="team-item__description">
-						<p>Информационное сопровождение</p>
-					</div>
-				</div>
-
-				<div class="team-item col-xl-3 col-lg-4 col-md-6 col-12">
-					<div class="team-item__thumb">
-						<a href="/themes/razoom/assets/images/team-member-4.jpg" data-fancybox="gallery"
-							data-caption="Виолетта Кошак" class="no-underline fancybox">
-							<img src="/themes/razoom/assets/images/team-member-4.jpg" alt="team-member-photo">
-						</a>
-					</div>
-
-					<div class="team-item__name">
-						<p class="big"><b>Виолетта Кошак</b></p>
-					</div>
-
-					<div class="team-item__description">
-						<p>Взаимодействие со спикерами</p>
-					</div>
-				</div>
-
-				<div class="team-item col-xl-3 col-lg-4 col-md-6 col-12">
-					<div class="team-item__thumb">
-						<a href="/themes/razoom/assets/images/team-member-2.jpg" data-fancybox="gallery"
-							data-caption="Владислав Сафронов" class="no-underline fancybox">
-							<img src="/themes/razoom/assets/images/team-member-2.jpg" alt="team-member-photo">
-						</a>
-					</div>
-
-					<div class="team-item__name">
-						<p class="big"><b>Владислав Сафронов</b></p>
-					</div>
-
-					<div class="team-item__description">
-						<p>Взаимодействие с партнерами</p>
-					</div>
-				</div>
+				{% endfor %}
 
 			</div>
 		</div>
 	</div>
+	{% endif %}
 
+	{% if reviews != "[]" %}
 	<div class="sbox">
 		<div class="container">
 
+			{% if content.about_review_title %}
 			<div class="sbox__title">
 				<h2>Отзывы участников</h2>
 			</div>
+			{% endif %}
 
 			<div class="swiper-container review-list">
 				<div class="swiper-wrapper">
 
+					{% for review in reviews %}
 					<div class="swiper-slide review-item">
 						<div class="review-item-inner">
 
 							<div class="review-item__title">
-								<h3>Дарья Реутова</h3>
+								<h3>{{review.name}}</h3>
 							</div>
 
 							<div class="tags-item">
-								<p class="small transparent mb-0">18 февраля, 2019</p>
+								<p class="small transparent mb-0">{{review.date}}</p>
 							</div>
 
 							<div class="review-item__sticker mt-1">
 								<div class="content">
 									<p class="my-0">
-										В прошлом году я была участником уровней start и medium, в этом году приходила на несколько открытых
-										мастер-классов. Проект мне очень нравится, и я считаю его очень нужным для студентов. Видно, что
-										организаторы много стараются: они приглашаю действительно хороших спикеров.
+										{{review.content}}
 									</p>
 								</div>
 							</div>
 
 						</div>
 					</div>
-
-					<div class="swiper-slide review-item">
-						<div class="review-item-inner">
-
-							<div class="review-item__title">
-								<h3>Юлия Палтусова</h3>
-							</div>
-
-							<div class="tags-item">
-								<p class="small transparent mb-0">18 февраля, 2019</p>
-							</div>
-
-							<div class="review-item__sticker mt-1">
-								<div class="content">
-									<p class="my-0">Я считаю, что в студенческие годы нужно брать от университета как можно больше — не
-										только занятия с преподавателями кафедры, но и внеучебные активности такие как мастер-классы от
-										компаний-партнёров мирового уровня.</p>
-								</div>
-							</div>
-
-						</div>
-					</div>
-
-					<div class="swiper-slide review-item">
-						<div class="review-item-inner">
-
-							<div class="review-item__title">
-								<h3>Дарина Щенина</h3>
-							</div>
-
-							<div class="tags-item">
-								<p class="small transparent mb-0">18 февраля, 2019</p>
-							</div>
-
-							<div class="review-item__sticker mt-1">
-								<div class="content">
-									<p class="my-0">В прошлом году на начальном уровне курс назывался "Стратегический менеджмент", в этом
-										году ходила на уровень Hard, курс "Стратегический анализ". В прошлом году понравились лекции,
-										связанные с компетенциями будущего — вела Мария Мерзлякова, отличный спикер! В этом году понравился
-										модуль "Управление персоналом" от Татьяны Волеговой. Уровень Hard полезен. Он даёт знания по
-										конкретным компетенциям и скилам, важно для работы сейчас и в дальнейшем. Хочу отметить более
-										серьёзный подход организаторов к делу в этом год. </p>
-								</div>
-							</div>
-
-						</div>
-					</div>
+					{% endfor %}
 
 				</div>
-
 			</div>
 
+			{% if content.about_write_review_link %}
 			<div class="mt-3">
 				<div class="row justify-content-center no-gutters">
-					<a href="https://vk.com/razoom_urfu" target="_blank" class="button">Оставить отзыв</a>
+					<a href="{{content.about_write_review_link}}" target="_blank" class="button">Оставить отзыв</a>
 				</div>
 			</div>
+			{% endif %}
+
 		</div>
 
 	</div>
+	{% endif %}
+
 </div>

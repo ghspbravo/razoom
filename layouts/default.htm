@@ -1,3 +1,24 @@
+[builderDetails headerContentDetails]
+modelClass = "Zotovda\Content\Models\Content"
+identifierValue = 1
+modelKeyColumn = "id"
+displayColumn = "id"
+notFoundMessage = "Record not found"
+
+[builderList footerLogos]
+modelClass = "Zotovda\Content\Models\FooterLogos"
+scope = "-"
+scopeValue = "{{ :scope }}"
+noRecordsMessage = "No records found"
+detailsPage = "-"
+detailsUrlParameter = "id"
+displayColumn = "id"
+pageNumber = "{{ :page }}"
+==
+{% set record = headerContentDetails.record %}
+{% set footerLogos = footerLogos.records %}
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +35,10 @@
 <header>
 	<div class="container">
 		<div class="row no-gutters align-items-center">
-			{% content "logo.htm" %}
+
+			{% if record.logo.path %}
+				{% content "logo.htm" path=record.logo.path %}
+			{% endif %}
 	
 			<nav class="ml-xl-3 ml-lg-2">
 				<div class="row no-gutters nav-list nav-list_horizontal">
@@ -46,9 +70,11 @@
 				</div>
 			</nav>
 
+			{% if record.phone %}
 			<div class="ml-auto d-none d-md-block">
-				{% content "phone.htm" %}
+				{% content "phone.htm" number=record.phone %}
 			</div>
+			{% endif %}
 
 			<div class="ml-md-2 ml-auto d-lg-none">
 				{% content "burger.htm" %}
@@ -90,32 +116,42 @@
 				<div class="row no-gutters align-items-center">
 					<div class="ml-auto d-none d-md-block">
 						
-						<div class="logo">
-							<a href="http://www.fondpotanin.ru" target="_blank" class="no-underline">
-								<img src="/themes/razoom/assets/images/potanin.png" alt="logo">
-							</a>
-						</div>
+						{% if footerLogos %}
+							{% for logo in footerLogos %}
+								<div class="logo">
+									<a href="{{logo.logo_link}}" target="_blank" class="no-underline">
+										<img src="{{logo.logo.path}}" alt="logo">
+									</a>
+								</div>
+							{% endfor %}
+						{% endif %}
 						
 					</div>
 
+					{% if record.socials_vk or record.socials_fb or record.socials_in %}
 					<div class="ml-auto mr-auto mr-md-0 mt-4 mt-lg-0 socials_bw">
-						{% content "socials.htm" %}
+						{% partial "socials.htm" vk=record.socials_vk fb=record.socials_fb in=record.socials_in %}
 					</div>
+					{% endif %}
 				</div>
 			</div>
 
 		</div>
 
 		<div class="row no-gutters flex-column flex-md-row mt-5">
-			<div class="mx-auto mx-md-0">
-				{% content "email.htm" %}
-			</div>
+			{% if record.email %}
+			<div class="mx-auto mx-md-0 mr-md-4 ">
+					{% content "email.htm" address=record.email %}
+				</div>
+			{% endif %}
 
-			<div class="ml-md-4 mr-xl-5 mr-0 mt-2 mt-md-0 mx-auto">
-				<a href="https://vk.com/razoom_urfu" target="_blank" class="dashed coworking">Подать заявку на сотрудничество</a>
+			{% if record.collaboration_link %}
+			<div class="mr-xl-5 mr-0 mt-2 mt-md-0 ml-md-0 mx-auto">
+				<a href="{{ record.collaboration_link }}" target="_blank" class="dashed coworking">Подать заявку на сотрудничество</a>
 			</div>
+			{% endif %}
 
-			<div class="ml-xl-5 ml-lg-4 mx-md-0 mt-2 mt-lg-0 mx-auto">
+			<div class="ml-xl-0 ml-lg-4 mx-md-0 mt-2 mt-lg-0 mx-auto">
 				<a href="{{ 'privacy'|page }}" class="polytics">Политика конфиденциальности</a>
 			</div>
 
@@ -133,8 +169,9 @@
 		<div class="modal-nav-header">
 			<div class="row align-items-center no-gutters">
 				
-				{% content "logo.htm" %}				
-
+				{% if record.logo.path %}
+					{% content "logo.htm" path=record.logo.path %}
+				{% endif %}
 				<div class="ml-auto">
 					{% content "close.htm" %}
 				</div>
@@ -156,9 +193,11 @@
 
 		</div>
 
+		{% if record.phone %}
 		<div class="d-md-none modal-nav-contacts row no-gutters justify-content-center">
-			{% content "phone.htm" %}			
-		</div>
+				{% content "phone.htm" number=record.phone %}
+			</div>
+		{% endif %}
 
 	</div>
 	
