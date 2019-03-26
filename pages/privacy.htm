@@ -24,7 +24,7 @@ notFoundMessage = "Record not found"
 
 			{% if content.privacy_content %}
 			<div class="content">
-				{{content.privacy_content}}
+				{{content.privacy_content|raw}}
 			</div>
 			{% endif %}
 
