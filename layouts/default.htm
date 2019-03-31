@@ -14,6 +14,7 @@ detailsPage = "-"
 detailsUrlParameter = "id"
 displayColumn = "id"
 pageNumber = "{{ :page }}"
+
 ==
 {% set record = headerContentDetails.record %}
 {% set footerLogos = footerLogos.records %}
@@ -27,7 +28,7 @@ pageNumber = "{{ :page }}"
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link href="{{ './assets/styles.min.css'|theme }}" rel="stylesheet">
-	<title>RaZOOM > {{ this.page.title }}</title>
+	<title>RaZOOM > {% if viewBag.property("pageTitle") %} {{ viewBag.pageTitle }} {% else %} {{this.page.title}} {% endif %}</title>
 
 	{% placeholder head %}
 </head>

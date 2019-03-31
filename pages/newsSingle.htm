@@ -11,11 +11,13 @@ displayColumn = "title"
 notFoundMessage = "Record not found"
 
 [viewBag]
-pageTitle = builderDetails.record.title
+pageTitle
 ==
 {% set record = builderDetails.record %}
 {% set displayColumn = builderDetails.displayColumn %}
 {% set notFoundMessage = builderDetails.notFoundMessage %}
+
+{% do viewBag.setProperty("pageTitle", builderDetails.record.title) %}
 
 <div class="wrapper">
 	<div class="sbox">
@@ -29,7 +31,7 @@ pageTitle = builderDetails.record.title
 				</div>
 
 				<div class="news__date">
-					<p class="small">{{record.created_at}}</p>
+					<p class="small">{{record.created_at|date("d.m.Y")}}</p>
 				</div>
 
 				<div class="content fr-view">

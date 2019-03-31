@@ -10,7 +10,7 @@
                             {% endif %}" alt="news-thumb">
 				</div>
 				<div class="news-item__date">
-					<p class="small">{{ attribute(record, "created_at") }}</p>
+					<p class="small">{{ attribute(record, "created_at")|date("d.m.Y") }}</p>
 				</div>
 				<div class="news-item__title">
 					<h3><span>{{ attribute(record, "title") }}</span></h3>
